@@ -1,2 +1,7 @@
 # Autism Spectrum Disorder Prediction in Children
- Build a user-friendly web app that leverages deep learning for a specific purpose. This demonstrates the practical application of deep learning concepts and explores web development using Python Flask web framework and VGG16 Model.  Investigate the capabilities of deep learning models in identifying features associated with ASD in images. This contributes research in applying deep learning to aid ASD diagnosis.  Utilized responsive design to ensure compatibility across all devices
+This repository contains a web application for predicting Autism Spectrum Disorder (ASD) in children using the VGG16 deep learning model and Python Flask.
+
+Features
+Deep Learning: Utilizes the VGG16 CNN model fine-tuned for ASD prediction.
+Flask Web App: Simple interface for uploading images and receiving real-time predictions.
+Detailed Results: Provides a probability score indicating the confidence level of the prediction.

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('prediction-result').style.display = 'none';
+
+            document.getElementById('upload-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var form = this;
+                var formData = new FormData(form);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('prediction-text').innerText = data.class_index;
+                    document.getElementById('prediction-result').style.display = 'block';
+                    document.getElementById('prediction-result').classList.add('fade-in');
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+        function redirectToPage() {
+            window.location.href = '/prediction.html'
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Autism Spectrum Disorder (ASD) Detection</h1>
+        <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".jpg, .jpeg, .png"><br>
+            <button type="submit" onclick="redirectToPage">Upload Image</button>
+        </form>
+    </div>
+    <script> function redirectToPage() {
+        window.location.href = "/prediction.html"</script>
+    }
+</body>
+</html>

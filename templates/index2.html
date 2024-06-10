@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('prediction-result').style.display = 'none';
+
+            document.getElementById('upload-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var form = this;
+                var formData = new FormData(form);
+
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(prediction => {
+                    document.getElementById('prediction-text').innerText = prediction;
+                    document.getElementById('prediction-result').style.display = 'block';
+                    document.getElementById('prediction-result').classList.add('fade-in');
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Classifier</h1>
+        <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".jpg, .jpeg, .png"><br>
+            <button type="submit">Upload Image</button>
+        </form>
+    </div>
+
+    <!-- Prediction Result Popup -->
+    <div id="prediction-result" class="prediction-popup">
+        <span id="prediction-text"></span>
+    </div>
+</body>
+</html>

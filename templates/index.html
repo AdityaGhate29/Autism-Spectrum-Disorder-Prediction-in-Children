@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Image Classifier</h1>
+    <input type="file" id="fileInput">
+    <button onclick="uploadImage()">Upload Image</button>
+    <div id="prediction"></div>
+
+    <script>
+        function uploadImage() {
+            var formData = new FormData();
+            var fileInput = document.getElementById('fileInput');
+            formData.append('file', fileInput.files[0]);
+
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    document.getElementById('prediction').innerText = 'Prediction: ' + response.prediction;
+                },
+                error: function(xhr, status, error) {
+                    alert('Error uploading image: ' + error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
